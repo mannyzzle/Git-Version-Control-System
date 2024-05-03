@@ -14,7 +14,6 @@ This project implements a version control system similar to Git, allowing you to
 - **Version Tracking:** Captures snapshots of your codebase at specific points in time.
 - **Change Tracking:** Identifies modifications made to files since the last commit.
 - **Commit History:** Provides a record of all commits, including the author, date, and message.
-- **(Optional) Branching and Merging:** Allows you to create divergent versions of your codebase and integrate changes between them (consider adding this if implemented).
 
 **Installation and Usage**
 
@@ -43,7 +42,7 @@ This project implements a version control system similar to Git, allowing you to
 3. Commit the changes with a message: `java Main commit "Added filename.txt"`
 4. View the commit history: `java Main log`
 
-**(Optional) Contributing**
+**Contributing**
 
 If you'd like to contribute to this project, please follow these steps:
 
