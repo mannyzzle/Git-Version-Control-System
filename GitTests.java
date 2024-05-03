@@ -71,9 +71,7 @@ public class GitletTests {
     /**
      * Asserts that the test suite is being run in TESTING_DIR.
      * <p>
-     * Gitlet does dangerous file operations, and is affected by the existence
-     * of other files. Therefore, we must ensure that we are working in a known
-     * directory that (hopefully) has no files.
+     * working in a known directory that (hopefully) has no files.
      */
     public static void verifyWD() {
         Path wd = Path.of(System.getProperty("user.dir"));
@@ -90,19 +88,7 @@ public class GitletTests {
 
     /**
      * Asserts that no class uses nontrivial statics.
-     * <p>
-     * Using a JUnit tester over a multiple-execution script means that
-     * we are running in a single invocation of the JVM, which means that
-     * static variables keep their values. Rather than attempting to restore
-     * static state (which is nontrivial), we simply ban any static state
-     * aside from primitives, Strings (immutable), Paths (immutable),
-     * Files (immutable), SimpleDateFormat (not immutable, but can't carry
-     * useful info), and a couple utility classes for tests.
-     * <p>
-     * This test is not a game to be defeated. Even if you manage to smuggle
-     * static state, the autograder will test your program by running it
-     * over multiple invocations, and your static variables will be reset.
-     *
+     * 
      * @throws IOException
      */
     @BeforeClass
@@ -152,7 +138,7 @@ public class GitletTests {
                 SimpleDateFormat.class,
                 // Utils
                 FilenameFilter.class,
-                // For testing stdout; not actually for use by students.
+                
                 ByteArrayOutputStream.class,
                 PrintStream.class
         );
@@ -188,7 +174,6 @@ public class GitletTests {
     public static void setup04_trapSystemExit() {
         // https://openjdk.java.net/jeps/411
         // https://bugs.openjdk.java.net/browse/JDK-8199704
-        // TODO: this is deprecated. See issues above.
         System.setSecurityManager(new SecurityManager() {
             @Override
             public void checkExit(int status) {
@@ -197,7 +182,7 @@ public class GitletTests {
                 }
             }
 
-            // Default allow all - this isn't security sensitive
+            // Default allow all 
             @Override
             public void checkPermission(Permission perm) {
             }
@@ -213,13 +198,12 @@ public class GitletTests {
     public static void restoreSecurity() {
         // JUnit uses system.exit(0) internally somewhere, so hand control back
         // to the JVM before we leave the test class
-        // TODO: this is deprecated. See the other call for relevant issue.
         System.setSecurityManager(null);
     }
 
     public void recursivelyCleanWD() throws IOException {
-        // DANGEROUS: We're wiping the directory.
-        // Must ensure that we're in the right directory, even though we did in setup01_verifyWD.
+
+        // ensures that we're in the right directory, even though we did in setup01_verifyWD.
         verifyWD();
 
         // Recursively wipe the directory
@@ -232,7 +216,7 @@ public class GitletTests {
 
             @Override
             public FileVisitResult postVisitDirectory(Path dir, IOException e) throws IOException {
-                // Don't delete the directory itself, we're about to work in it!
+                // Doesn't delete the directory itself, continue work
                 if (dir.toString().equals(System.getProperty("user.dir"))) {
                     return FileVisitResult.CONTINUE;
                 }
